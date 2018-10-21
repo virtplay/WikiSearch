@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  WikiSearch
 //
-//  Created by Karthik on 19/10/18.
+//  Created by Karthik on 20/10/18.
 //  Copyright © 2018 Karthik. All rights reserved.
 //
 
@@ -14,41 +14,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!  // search bar
     
     
-    var pageListArray = [WikiPage]()  // Data from coredata
-//    var filteredArray = [WikiPage]()  // filtered data array
+    var pageListArray = [WikiPage]()  // Array to store coredata content
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        setupWikiData()
-        registerForKeyBoardNotification()
         setupSearchbar()
     }
     
-    private func registerForKeyBoardNotification(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
-
-    }
-    
-    @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            print("notification: Keyboard will show")
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-        
-    }
-    
-    @objc func keyboardWillHide(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0 {
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
-    }
-
     private func setupSearchbar(){
         searchBar.delegate = self
     }
@@ -74,14 +47,11 @@ class ViewController: UIViewController {
         }
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-   
-    
 }
 
 extension ViewController:UISearchBarDelegate{
@@ -96,6 +66,11 @@ extension ViewController:UISearchBarDelegate{
         self.getPages(searchString: searchText)
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        self.searchBar.endEditing(true)
+    }
+    
 }
 
 extension ViewController: UITableViewDataSource,UITableViewDelegate{
@@ -103,9 +78,11 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TableCell else{
             return UITableViewCell()
         }
-        //        cell.country =
-        //        cell.detail =
-        //        cell.imgView =
+        
+        cell.layer.cornerRadius = 12
+        cell.layer.masksToBounds = true
+        
+        imageViewCornerRadius(profileImage: cell.imgView)
         
         let pageAtIndex = pageListArray[indexPath.row]
         if let pageTitle = pageAtIndex.title {
@@ -119,12 +96,20 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
             cell.detail.text = "No Description available"
         }
         
-//        if let imageURL = pageAtIndex.image_url {
-//            cell.imgView?.sd_setImage(with: URL(string: imageURL), placeholderImage: UIImage(named: "placeholder.png"))
-//        }else{
-            cell.imageView?.image = UIImage(named: "placeholder.png")
-//        }
-        cell.imageView?.contentMode = .scaleAspectFit
+        if pageAtIndex.image_url != nil {
+            if pageAtIndex.image != nil{
+                cell.imgView.image = UIImage(data: pageAtIndex.image!)
+            }else{
+                let url = URL(string: pageAtIndex.image_url!)
+                let data = try? Data(contentsOf: url!)   // download thumbnail for image url
+                cell.imgView.image = UIImage(data: data!)
+            }
+        }
+        else{
+            cell.imgView.image = UIImage(named: "placeholder.png")
+            cell.imageView?.contentMode = .scaleToFill
+        }
+    
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         
@@ -137,7 +122,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 65
+        return 80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -151,6 +136,13 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
         }else{
             AlertController.showAlertToUser(messageTitle: "Error", message: "Detail not found", controller: self)
         }
+    }
+    
+    func imageViewCornerRadius(profileImage: UIImageView)
+    {
+        profileImage.layer.cornerRadius = 16.0
+        profileImage.layer.masksToBounds = true
+        
     }
     
 }

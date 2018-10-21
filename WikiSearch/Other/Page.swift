@@ -2,7 +2,7 @@
 //  Page.swift
 //  WikiSearch
 //
-//  Created by Karthik on 19/10/18.
+//  Created by Karthik on 20/10/18.
 //  Copyright © 2018 Karthik. All rights reserved.
 //
 
@@ -14,20 +14,9 @@ class Page: NSObject {
     var pageTitle : String?
     var pageDescription : String?
     var pageImageUrl : String?
+    var pageData : Data?
     
     //Parse json and get page
-    
-//    func getPageInfoJson(jsonData:Data) -> Page {
-//        let decoder = JSONDecoder()
-//        var decodedpage:Page?
-//        do {
-//             decodedpage = try decoder.decode(Page.self, from: jsonData)
-//        } catch {
-//            print("Error while decoding: \(error.localizedDescription)")
-//        }
-//        return decodedpage!
-//    }
-    
     static func getPageFromJson(json:[String:Any])-> Page{
 
         let page = Page()
@@ -45,6 +34,15 @@ class Page: NSObject {
                 page.pageImageUrl = imageurl
             }
         }
+        
+        if let thumbnail_img = json["thumbnail"] as? NSDictionary {
+            if let imageurl = thumbnail_img["source"] as? String {
+                let url = URL(string: imageurl)
+                let data = try? Data(contentsOf: url!)
+                page.pageData = data
+            }
+        }
+        
 
         if let terms = json["terms"] as? NSDictionary {
             if let descriptionArray = terms["description"] as? NSArray {

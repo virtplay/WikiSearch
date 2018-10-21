@@ -54,7 +54,6 @@
 		37AB6A662179B514008FE531 = {
 			isa = PBXGroup;
 			children = (
-				37AB6A902179D132008FE531 /* Model.xcdatamodeld */,
 				37AB6A712179B514008FE531 /* WikiSearch */,
 				37AB6A702179B514008FE531 /* Products */,
 			);
@@ -71,21 +70,62 @@
 		37AB6A712179B514008FE531 /* WikiSearch */ = {
 			isa = PBXGroup;
 			children = (
-				37AB6A722179B514008FE531 /* AppDelegate.swift */,
-				37AB6A8C2179C07D008FE531 /* TableCell.swift */,
-				37AB6A952179DBAC008FE531 /* placeholder.png */,
-				37AB6A932179D18A008FE531 /* PersistantService.swift */,
-				37AB6A742179B514008FE531 /* ViewController.swift */,
-				37AB6A8E2179C341008FE531 /* Page.swift */,
+				37B3B1A1217C8B6800E244F2 /* Images */,
+				37B3B1A0217C8B5600E244F2 /* Other */,
+				37B3B19F217C8B4300E244F2 /* Network */,
+				37B3B19E217C8B2A00E244F2 /* Model */,
+				37B3B19D217C8AF400E244F2 /* ViewControllers */,
 				37AB6A762179B514008FE531 /* Main.storyboard */,
-				37AB6A842179B71D008FE531 /* DetailPageViewController.swift */,
-				37AB6A872179B73B008FE531 /* AlertController.swift */,
-				37AB6A862179B73B008FE531 /* NetworkInterface.swift */,
 				37AB6A792179B520008FE531 /* Assets.xcassets */,
 				37AB6A7B2179B520008FE531 /* LaunchScreen.storyboard */,
 				37AB6A7E2179B520008FE531 /* Info.plist */,
 			);
 			path = WikiSearch;
+			sourceTree = "<group>";
+		};
+		37B3B19D217C8AF400E244F2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				37AB6A742179B514008FE531 /* ViewController.swift */,
+				37AB6A872179B73B008FE531 /* AlertController.swift */,
+				37AB6A842179B71D008FE531 /* DetailPageViewController.swift */,
+				37AB6A8C2179C07D008FE531 /* TableCell.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		37B3B19E217C8B2A00E244F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37AB6A902179D132008FE531 /* Model.xcdatamodeld */,
+				37AB6A932179D18A008FE531 /* PersistantService.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37B3B19F217C8B4300E244F2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				37AB6A862179B73B008FE531 /* NetworkInterface.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		37B3B1A0217C8B5600E244F2 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				37AB6A8E2179C341008FE531 /* Page.swift */,
+				37AB6A722179B514008FE531 /* AppDelegate.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		37B3B1A1217C8B6800E244F2 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				37AB6A952179DBAC008FE531 /* placeholder.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

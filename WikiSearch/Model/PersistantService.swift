@@ -2,7 +2,7 @@
 //  PersistantService.swift
 //  WikiSearch
 //
-//  Created by Karthik on 19/10/18.
+//  Created by Karthik on 20/10/18.
 //  Copyright © 2018 Karthik. All rights reserved.
 //
 
@@ -26,6 +26,7 @@ class PersistantService {
         itemToSave.id = page.pageID
         itemToSave.image_url = page.pageImageUrl
         itemToSave.desc = page.pageDescription
+        itemToSave.image = page.pageData
         
         do {
             try context.save()

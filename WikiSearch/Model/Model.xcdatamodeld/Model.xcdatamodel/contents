@@ -3,10 +3,11 @@
     <entity name="WikiPage" representedClassName="WikiPage" syncable="YES" codeGenerationType="class">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="image_url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="WikiPage" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="WikiPage" positionX="-63" positionY="-18" width="128" height="120"/>
     </elements>
 </model>
